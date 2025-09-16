@@ -43,9 +43,9 @@ public class Bank {
     }
     public void displayClients() {
         Client [] sorted = Arrays.copyOf(clients, clientCount); 
-        Arrays.sort(sorted, (a,b) -> a.getlastname().compareToIgnoreCase(b.getlastname()));
+        Arrays.sort(sorted, (a,b) -> a.getLastname().compareToIgnoreCase(b.getLastname()));
         for(Client c : sorted) {
-            System.out.printf("Code: %d Name: %s %s", c.getCliCode(), c.getlastname(), c.getFirstname());
+            System.out.printf("Code: %d Name: %s %s", c.getCliCode(), c.getLastname(), c.getFirstname());
         }
     }
     public Client findClient (int cliCode) {
@@ -121,7 +121,7 @@ public class Bank {
                 sc.nextLine();
                 if(String.valueOf(cliCode).length() != 8) {
                     System.out.println("Code must contain 8 digits!");
-                    break;
+                    return;
                 }
                 if (findClient(cliCode) == null) {
                     System.out.print("firstname : ");
@@ -140,7 +140,7 @@ public class Bank {
                 sc.nextLine();
                 if(String.valueOf(cliCode).length() != 8) {
                     System.out.println("Code must contain 8 digits!");
-                    break;
+                    return;
                 }
                 System.out.print("newfirstname : ");
                 String newfirstname = sc.nextLine();
@@ -154,7 +154,7 @@ public class Bank {
                 sc.nextLine();
                 if(String.valueOf(cliCode).length() != 8) {
                     System.out.println("Code must contain 8 digits!");
-                    break;
+                    return;
                 }
                 deleteClient(cliCode);
                 break;
@@ -173,14 +173,14 @@ public class Bank {
                 int cliCode = sc.nextInt();
                 if(String.valueOf(cliCode).length() != 8) {
                     System.out.println("client code must contain 8 digits!");
-                    break;
+                    return;
                 }
                 System.out.print("account Code :");
                 int accCode = sc.nextInt();
                 sc.nextLine();
                 if(String.valueOf(accCode).length() != 8) {
                     System.out.println("account code must contain 8 digits!");
-                    break;
+                    return;
                 }
                 System.out.print("initial balance :");
                 double balance= sc.nextDouble();
@@ -194,7 +194,7 @@ public class Bank {
                 sc.nextLine();
                 if(String.valueOf(accCode).length() != 8) {
                     System.out.println("account code must contain 8 digits!");
-                    break;
+                    return;
                 }
                 Account acc = findAccount(accCode);
                 if(acc == null) {
@@ -212,10 +212,47 @@ public class Bank {
                 sc.nextLine();
                 if(String.valueOf(accCode).length() != 8) {
                     System.out.println("account code must contain 8 digits!");
-                    break;
+                    return;
                 }
                 deleteAccount(accCode);
                 break;
         }
+    }
+    private void transactionsMenu(Scanner sc) {
+        System.out.print("account Code :");
+        int accCode = sc.nextInt();
+        sc.nextLine();
+        if(String.valueOf(accCode).length() != 8) {
+            System.out.println("account code must contain 8 digits!");
+                return;
+        }
+        Account acc = findAccount(accCode);
+        if(acc == null) {
+            System.out.println("Account not found!");
+        }else{
+            System.out.println("1- Withdraw\n2- Deposit\n3- Back");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.println("amount to withdraw");
+                    double amount= sc.nextDouble();
+                    if(amount >= 0 && amount <=acc.getBalance() && amount <= 500) {
+                        acc.withdraw(amount);
+                        System.out.println(amount + "withdrawed succsessfully!");
+                        acc.showBalance();
+                    }
+                    break;
+                case 2:
+                    System.out.println("amount to deposit");
+                    amount= sc.nextDouble();
+                    if(amount > 0) {
+                        acc.deposit(amount);
+                        System.out.println(amount + "deposited succsessfully!");
+                        acc.showBalance();
+                    }
+                    break;
+            }
+        }
+
     }
 }
