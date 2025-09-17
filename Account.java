@@ -1,6 +1,7 @@
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class Account{
+public class Account implements Serializable{
     private int cliCode;
     private int AccCode;
     private double balance;

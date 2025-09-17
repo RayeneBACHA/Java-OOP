@@ -1,7 +1,11 @@
 public class Main{
-    public static void main() {
+    public static void main(String[] args) {
         Bank bank = new Bank();
+        bank.loadClients();
+        bank.loadAccounts();
         bank.mainMenu();
-        bank.sc.close();
+        bank.saveClients();
+        bank.saveAccounts();
+        bank.scannerClose();
     }
 }

@@ -1,4 +1,6 @@
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable{
     private int cliCode;
     private String firstname;
     private String lastname;
@@ -13,6 +15,6 @@ public class Client {
     public int getCliCode() {return this.cliCode;}
     public String getFirstname() {return this.firstname;}
     public void setFirstname(String newFirstname) {this.firstname = newFirstname;}
-    public String getlastname() {return this.lastname;}
+    public String getLastname() {return this.lastname;}
     public void setLastname(String newLastname) {this.lastname = newLastname;}
 }
